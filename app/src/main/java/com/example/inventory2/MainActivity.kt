@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,20 +52,34 @@ class MainActivity : AppCompatActivity() {
                 var cv = ContentValues()
                 cv.put(Country, Text1.text.toString())
                 cv.put(Capital,Text2.text.toString())
+                Toast.makeText(
+                    this,"You have insert Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}",
+                    Toast.LENGTH_LONG).show()
                 contentResolver.insert(uri,cv)
                 rs?.requery()
             }
             Button4.setOnClickListener{
-
+                var id = rs?.getInt(0)
+                var uri2 = Uri.withAppendedPath(uri,id.toString())
                 var cv = ContentValues()
-                //cv.put(Capital,Text1.text.toString())
+                cv.put(Country,Text1.text.toString())
                 cv.put(Capital,Text2.text.toString())
-                contentResolver.update(uri,cv,"country =?",arrayOf(Text1.text.toString()))
+                Toast.makeText(
+                    this,"You have update Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}",
+                Toast.LENGTH_LONG).show()
+                //contentResolver.update(uri2,cv,"country =?",arrayOf(Text1.text.toString()))
+                //contentResolver.update(uri2,cv,"id=?", arrayOf(rs?.getInt(0).toString()))
+                contentResolver.update(uri2,cv,"country =?", arrayOf(rs?.getString(1)))
                 rs?.requery()
             }
 
             Button5.setOnClickListener{
-                contentResolver.delete(uri,null,null)
+                var id = rs?.getInt(0)
+                var uri2 = Uri.withAppendedPath(uri,id.toString())
+                Toast.makeText(
+                    this,"You have delete Country = ${rs?.getString(1)} and Capital = ${rs?.getString(2)}",
+                    Toast.LENGTH_LONG).show()
+                contentResolver.delete(uri2,null,null)
                 rs?.requery()
             }
 
