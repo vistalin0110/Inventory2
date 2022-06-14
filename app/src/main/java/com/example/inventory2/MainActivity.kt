@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                     cv.put(Capital, Text2.text.toString())
                     Toast.makeText(
                         this,
-                        "You have update Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}}",
+                        "You have update Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}",
                         Toast.LENGTH_LONG
                     ).show()
                     contentResolver.update(
