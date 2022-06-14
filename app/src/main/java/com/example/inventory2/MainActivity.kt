@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                     Text2.setText(rs.getString(2))
                 }
             }
-
+        }
             Button2.setOnClickListener {
                 if (rs != null) {
                     if (rs.moveToPrevious()!!) {
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 cv.put(Capital, Text2.text.toString())
                 Toast.makeText(
                     this,
-                    "You have insert Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}",
+                    "insert Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}",
                     Toast.LENGTH_LONG
                 ).show()
                 contentResolver.insert(uri, cv)
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                     cv.put(Capital, Text2.text.toString())
                     Toast.makeText(
                         this,
-                        "You have update Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}",
+                        " update Country = ${Text1.text.toString()} and Capital = ${Text2.text.toString()}",
                         Toast.LENGTH_LONG
                     ).show()
                     contentResolver.update(
@@ -93,23 +93,23 @@ class MainActivity : AppCompatActivity() {
             }
 
             Button5.setOnClickListener {
-                //if (rs?.moveToFirst()!!) {
+                if (rs?.moveToFirst()!!) {
 
                     var id = rs?.getInt(0)
                     var uri2 = Uri.withAppendedPath(uri, id_column.toString())
-
+                    var country = rs?.getString(1)
                     Toast.makeText(
                         this,
-                        "You have delete Country = ${rs?.getString(1)} and Capital = ${
-                            rs?.getString(2)
-                        }",
+                        "You deleted current item !",
                         Toast.LENGTH_LONG
                     ).show()
-                    contentResolver.delete(uri2, "Country =?", arrayOf(rs?.getString(1)))
+                    contentResolver.delete( uri2,
+                        "country =? and id =?",
+                        arrayOf(country, id_column.toString()))
 
                     rs?.requery()
 
-              //  }
+                }
             }
 
             Button6.setOnClickListener {
@@ -118,15 +118,15 @@ class MainActivity : AppCompatActivity() {
                 Text1.requestFocus()
             }
             Button7.setOnClickListener {
-                if (rs != null) {
-                    rs.moveToFirst()
+
+                    rs?.moveToFirst()
                     Text1.setText("")
                     Text2.setText("")
 
-                }
+
 
             }
-        }
+    //    }
 
     }
 }
